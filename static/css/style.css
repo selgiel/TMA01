@@ -4,17 +4,14 @@ body {
 
 .sidebar {
   position: relative;
+  width: 33rem;
+  font-size: 1.1rem;
   background: #e6ece7;
   min-height: 100vh;
-  margin-right: 0.5rem;
-  border-right: 1px solid #cdd4ce;
-  /* overflow: hidden; */
 }
 
 .sidebar-img {
   position: absolute;
-  /* top: 0;
-  left: 0; */
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -22,6 +19,20 @@ body {
   z-index: 1;
   opacity: 0.6;
 }
+
+.sidebar-icon {
+  width: 1.5rem;     /* control size here */
+  height: 1.5rem;    /* keep square */
+  margin-top: 0.2rem;
+  /* object-fit: contain; */
+  display: block;
+}
+
+
+.sidebar-link img {
+  display: block;    /* remove baseline gap from images */
+}
+
 
 .sidebar-content {
   position: relative;
@@ -43,6 +54,7 @@ body {
 
 .sidebar-link {
   color: white;
+  overflow: hidden;
   font-weight: 500;
   text-decoration: none;
   display: flex;
@@ -50,8 +62,12 @@ body {
   padding: 12px 15px;
   margin-bottom: 10px;
   border-radius: 5px;
-  background: rgba(0, 0, 0, 0.3);
-  transition: all 0.3s;
+  align-items: center;
+  gap: 1rem;          /* space between icon and text */
+}
+
+.sidebar-link .label {
+  white-space: nowrap;    /* keep on one line */
 }
 
 .sidebar-link:hover {
@@ -61,9 +77,9 @@ body {
 }
 
 /* Rest of your existing CSS */
-.content-section {
+/* .content-section {
   padding: 38px 30px 30px 30px;
-}
+} */
 
 .category-form select,
 .category-form button {
@@ -88,28 +104,27 @@ body {
   box-shadow: 0 1px 3px rgba(150,150,150,0.12);
 }
 
-.book-info {
+/* .book-info {
   flex: 1;
   min-width: 0;
-}
+} */
 
 .book-title {
-  font-size: 1.12rem;
-  font-weight: 600;
+  font-size: 1.10rem;
   color: #183d31;
-  margin-bottom: 2px;
+  margin-bottom: -5px;
 }
 
 .book-author {
-  font-size: 1.02rem;
-  color: #222;
-  margin-bottom: 5px;
+  font-size: 1.10rem;
+  /* color: #222; */
+  margin-bottom: 3px;
 }
 
 .book-meta {
   font-size: 0.98rem;
   color: #768e83;
-  margin-bottom: 8px;
+  margin-bottom: 3px;
 }
 
 .book-desc {

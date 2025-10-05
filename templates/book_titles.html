@@ -1,51 +1,75 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="bg-success bg-opacity-10 py-2 px-3 mb-1">
-  <h4 class="fw-semibold mb-0" style="color:#345246;">BOOK TITLES</h4>
-</div>
 
+<div class="container-fluid px-3">
 
-<div class=d-flex justify-content-between align-items-center mb-3 px-1">
-    <div class="bg-success bg-opacity-10 py-2 px-3 mb-3 w-100 d-flex justify-content-between align-items-center">
-        <span class="text-success fw-semibold" style="font-size: 1rem;">Number of titles: {{ books|length }}</span>
-        <form method="post" class="d-flex align-items-center ms-auto">
-            <label for="category" class="me-2 fw-normal" style="font-size:1rem;">Category</label>
-            <select class="form-select form-select-sm" style="width:120px;" name="category" id="category">
-                {% for cat in categories %}
-                <option value="{{ cat }}" {% if selected == cat %}selected{% endif %}>{{ cat }}</option>
-                {% endfor %}
+  <!-- Full-width page title bar -->
+  <div class="bg-success bg-opacity-10 py-2 px-3">
+    <h4 class="fw-semibold mb-0" style="color:#345246;">BOOK TITLES</h4>
+  </div>
+
+  <!-- Shared narrow content width -->
+  <div class="content-narrow px-4 mt-2">
+
+    <!-- Number of titles + filter -->
+    <div class="bg-success bg-opacity-10 px-3 ps-4 mb-3">
+      <div class="d-flex justify-content-between align-items-center flex-wrap">
+        <span class="text-muted fw-semibold mb-0">
+          Number of titles: {{ books|length }}
+        </span>
+
+        <form method="post" class="row gx-2 gy-0 align-items-center ms-auto">
+          <label for="category" class="col-auto col-form-label fw-normal mb-0">Category</label>
+          <div class="col-auto">
+            <select id="category" name="category" class="form-select form-select-sm" style="min-width:160px;">
+              {% for cat in categories %}
+              <option value="{{ cat }}" {% if selected == cat %}selected{% endif %}>{{ cat }}</option>
+              {% endfor %}
             </select>
-            <button type="submit" class="btn btn-success btn-sm ms-2">Search</button>
+          </div>
+          <div class="col-auto">
+            <button type="submit" class="btn btn-success btn-sm">Search</button>
+          </div>
         </form>
-    </div>    
-    
-</div>
-
-{% for book in books %}
-  <div class="card shadow-sm mb-4 px-2 pt-3 pb-2"">
-    <div class="row g-0 align-items-start">
-      <div class="col-md-2 d-flex justify-content-center">
-        <img src="{{ book.url }}" class="rounded-2" style="max-width: 105px; background: #f6f6f6;">
       </div>
-      <div class="col-md-10 ps-4">
-        <div class="card-body py-1 px-0">
-          <div c style="font-size:1.12rem;">{{ book.title }}</div>
-          <div class="mb-1 fw-normal" style="font-size:1.03rem;">
-            By {{ book.authors|join(', ') if book.authors is iterable else book.authors }}
+    </div>
+
+
+    <!-- Cards -->
+    {% for book in books %}
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <div class="row g-3">
+          <div class="col-md-2 d-flex justify-content-center">
+            <img src="{{ book.url }}" class="rounded-2"
+                style="width:110px;height:160px;object-fit:cover;background:#f6f6f6;">
           </div>
-          <div class="mb-1">
-            Category: {{ book.category }},
-            {% if book.genres %} {{ book.genres|join(', ') if book.genres is iterable else book.genres }},{% endif %}
-            <br>
-            Pages: {{ book.pages }}
+
+          <div class="col-md-10 d-flex flex-column">
+            <div class="book-title">{{ book.title }}</div>
+            <div class="book-author">By {{ book.authors|join(', ') if book.authors is iterable else book.authors }}</div>
+
+            <div class="book-meta mb-2">
+              Category: {{ book.category }},
+              {% if book.genres %} {{ book.genres|join(', ') if book.genres is iterable else book.genres }},{% endif %}
+              <br>Pages: {{ book.pages }}
+            </div>
+
+            <div class="book-paragraph mb-2">{{ book.first_para }}</div>
+            <div class="book-paragraph mb-3">{{ book.last_para }}</div>
+
+            <div class="mt-auto d-flex">
+              <a href="/books/{{ book.id }}" class="btn btn-success btn-sm ms-auto" style="font-size:0.99rem;">
+                More details
+              </a>
+            </div>
           </div>
-          <div style="font-size:1rem;">{{ book.first_para }}</div>
-          <br>
-          <div style="font-size:1rem;">{{ book.last_para }}</div>
-          <button class="btn btn-success btn-sm mt-2" style="font-size: 0.99rem;">More details</button>
         </div>
       </div>
     </div>
+  {% endfor %}
   </div>
-{% endfor %}
+
+</div>
+
 {% endblock %}
