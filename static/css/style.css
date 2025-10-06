@@ -2,12 +2,17 @@ body {
   background: #f6f6f6;
 }
 
+.main-content {
+  margin-left: 17rem; /* Slightly more than sidebar width of 15rem */
+}
+
 .sidebar {
-  position: relative;
-  width: 33rem;
+  position: fixed;
+  width: 15rem;
   font-size: 1.1rem;
   background: #e6ece7;
   min-height: 100vh;
+  white-space: nowrap; /*prevents the words from going next line */
 }
 
 .sidebar-img {
@@ -24,15 +29,12 @@ body {
   width: 1.5rem;     /* control size here */
   height: 1.5rem;    /* keep square */
   margin-top: 0.2rem;
-  /* object-fit: contain; */
   display: block;
 }
-
 
 .sidebar-link img {
   display: block;    /* remove baseline gap from images */
 }
-
 
 .sidebar-content {
   position: relative;
@@ -62,12 +64,7 @@ body {
   padding: 12px 15px;
   margin-bottom: 10px;
   border-radius: 5px;
-  align-items: center;
   gap: 1rem;          /* space between icon and text */
-}
-
-.sidebar-link .label {
-  white-space: nowrap;    /* keep on one line */
 }
 
 .sidebar-link:hover {
@@ -75,11 +72,6 @@ body {
   color: white;
   transform: translateX(5px);
 }
-
-/* Rest of your existing CSS */
-/* .content-section {
-  padding: 38px 30px 30px 30px;
-} */
 
 .category-form select,
 .category-form button {
@@ -104,11 +96,6 @@ body {
   box-shadow: 0 1px 3px rgba(150,150,150,0.12);
 }
 
-/* .book-info {
-  flex: 1;
-  min-width: 0;
-} */
-
 .book-title {
   font-size: 1.10rem;
   color: #183d31;
@@ -117,7 +104,6 @@ body {
 
 .book-author {
   font-size: 1.10rem;
-  /* color: #222; */
   margin-bottom: 3px;
 }
 
@@ -149,9 +135,15 @@ body {
   .sidebar {
     display: none;
   }
+  
+  .main-content {
+    margin-left: 0; /* Reset margin when sidebar is hidden */
+  }
+  
   .content-section {
     padding: 16px !important;
   }
+  
   .book-card {
     flex-direction: column;
     align-items: stretch;
