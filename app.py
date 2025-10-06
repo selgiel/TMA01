@@ -1,7 +1,10 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, url_for, redirect
 from books import all_books  # Assume all_books is a list of book dicts in books.py
 
 app = Flask(__name__, static_folder='static')  # Make sure this points to 'static'
+
+for i, b in enumerate(all_books):
+    b['id'] = i + 1
 
 # Utility to fetch first and last paragraphs of description
 def get_first_last_paragraph(description):
@@ -26,6 +29,16 @@ def book_titles():
 
     categories = ['All', 'Children', 'Teens', 'Adult']
     return render_template('book_titles.html', books=books_filtered, categories=categories, selected=category)
+
+def get_book(book_id: int):
+    return next((b for b in all_books if b.get("id") == book_id), None)
+
+@app.route('/books/<int:book_id>')
+def book_details(book_id):
+    book = get_book(book_id)
+    if not book:
+        return redirect(url_for('book_titles'))
+    return render_template('book_detail.html', book=book)
 
 if __name__ == '__main__':
     app.run(debug=True)
