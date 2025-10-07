@@ -41,8 +41,7 @@
       <div class="card-body">
         <div class="row g-3">
           <div class="col-md-2 d-flex justify-content-center">
-            <img src="{{ book.url }}" class="rounded-2"
-                style="width:110px;height:160px;object-fit:cover;background:#f6f6f6;">
+            <img src="{{ book.url }}" class="book-img">
           </div>
 
           <div class="col-md-10 d-flex flex-column">
@@ -59,7 +58,7 @@
             <div class="book-paragraph mb-3">{{ book.last_para }}</div>
 
             <div class="mt-auto d-flex">
-              <a href="/books/{{ book.id }}" class="btn btn-success btn-sm ms-auto" style="font-size:0.99rem;">
+              <a href="/books/{{ book.id }}" class="btn btn-success btn-sm ms-auto">
                 More details
               </a>
             </div>
