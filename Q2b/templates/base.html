@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>SG Library</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Bootstrap 5 CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+  <!-- Desktop sidebar (hidden on small screens via CSS) -->
+  <nav class="sidebar" id="sidebar">
+    <img src="{{ url_for('static', filename='img/study_space.png') }}" class="sidebar-img" alt="sidebar image" />
+    <div class="sidebar-content">
+      <div class="library-title">SG Library</div>
+      <a href="{{ url_for('book_titles') }}" class="sidebar-link">
+        <img src="{{ url_for('static', filename='img/id-card.png') }}" alt="ID card" class="sidebar-icon">
+        <span>Book Titles</span>
+      </a>
+    </div>
+  </nav>
+
+<!-- Controller for CSS-only toggle -->
+<input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true">
+
+<!-- Existing top bar (retain design) -->
+<nav class="navbar" id="top-bar">
+  <div class="mobile-title"></div>
+  <label class="navbar-toggler" for="nav-toggle" aria-label="Mobile navigation">
+    <span class="navbar-toggler-icon"></span>
+  </label>
+</nav>
+
+<!-- NEW: in‑flow expander; appears between bar and cards when toggled -->
+<div id="top-expander" aria-label="Mobile navigation">
+  <aside class="top-sheet no-js inflow">
+    <img src="{{ url_for('static', filename='img/study_space.png') }}" class="sidebar-img" />
+    <div class="top-sheet-inner">
+      <div class="top-sheet-head">
+        <div class="top-sheet-title">SG Library</div>
+        <label for="nav-toggle" class="top-sheet-close" aria-label="Close">×</label>
+      </div>
+      <a href="{{ url_for('book_titles') }}" class="top-sheet-link">
+        <img src="{{ url_for('static', filename='img/id-card.png') }}" class="sidebar-icon" alt="">
+        <span>Book Titles</span>
+      </a>
+    </div>
+  </aside>
+</div>
+
+  <!-- Page Title Banner (BOOK TITLES / BOOK DETAILS) -->
+  <div class="page-header bg-success bg-opacity-10 py-2 px-3">
+    <h4 class="mb-0">
+      {% block page_title %}BOOK TITLES{% endblock %}
+    </h4>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    {% block content %}{% endblock %}
+  </div>
+
+<!-- To uncheck  nav toggle once  screen changes size so that the Book Title appears correctly -->
+  <script>
+    const toggle = document.getElementById('nav-toggle');
+    const mq = window.matchMedia('(min-width: 1050px)');  
+    const closeIfDesktop = e => { if (e.matches && toggle.checked) toggle.checked = false; };
+    mq.addEventListener('change', closeIfDesktop);
+    closeIfDesktop(mq); // run once on load
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
