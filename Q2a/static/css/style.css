@@ -13,20 +13,21 @@ body {
   position: fixed;
   width: 15rem;
   font-size: 1.1rem;
-  background: #e6ece7;
+  background: #e6ece7af;
   min-height: 100vh;
+  background-size: 50%;
   white-space: nowrap; /* prevents the words from going next line */
   z-index: 1000;
+  overflow:hidden;
 }
 
 .sidebar-img {
   position: absolute;
-  width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center;
   z-index: 1;
-  /* opacity: 0.6; */
+  background-size: 50%;
 }
 
 .sidebar-icon {

@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+  <!-- If this is the Register page; for Login page, switch heading to LOGIN -->
+</div>
+
+<div class="container my-3" id="register-container">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card shadow-sm">
+        <div class="bg-secondary bg-opacity-50 w-100 p-3">
+            <span class="display-6">Register</span>
+        </div>
+        <div class="card-body">
+          {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <div class="alert alert-info">{{ messages[0] }}</div>
+          {% endif %}
+          {% endwith %}
+          <form method="post" action="{{ url_for('login') }}">
+            <div class="form-group lead mb-3">
+              <label>Email</label>
+              <input class="form-control" type="email" name="email" placeholder="Enter email" required>
+            </div>
+            <div class="form-group lead mb-3">
+              <label>Password</label>
+              <input class="form-control" type="password" name="password" placeholder="Enter password" required>
+            </div>
+            <div class="form-group lead mb-3">
+              <label>Name</label>
+              <input class="form-control" type="name" name="name" required>
+            </div>
+            <button class="btn btn-success float-end" type="submit">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
