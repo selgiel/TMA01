@@ -3,7 +3,8 @@ html, body {
 }
 
 body {
-  background-color: #dde1e4;
+  font-family: 'Montserrat', sans-serif;
+  background-color: #eee;
   margin: 0;
   padding: 0;
 }
@@ -19,6 +20,7 @@ body {
   white-space: nowrap; /* prevents the words from going next line */
   z-index: 1000;
   overflow:hidden;
+  box-shadow: 5px 7px 25px #999;
 }
 
 .sidebar-img {
@@ -307,6 +309,7 @@ body {
   position: relative;
   z-index: auto;
   margin: 0rem 1rem;
+  box-shadow: 20px 0px 20px #999;
 }
 
 #top-expander 
@@ -349,7 +352,7 @@ body {
   .navbar { 
     display: flex;
     position: sticky;
-    background-color: #dde1e4;
+    background-color: #eee;
     }
   .book-title,
   .book-author,

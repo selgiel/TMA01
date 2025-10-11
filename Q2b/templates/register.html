@@ -17,7 +17,7 @@
             <div class="alert alert-info">{{ messages[0] }}</div>
           {% endif %}
           {% endwith %}
-          <form method="post" action="{{ url_for('login') }}">
+          <form method="post" action="{{ url_for('auth_bp.login') }}">
             <div class="form-group lead mb-3">
               <label>Email</label>
               <input class="form-control" type="email" name="email" placeholder="Enter email" required>

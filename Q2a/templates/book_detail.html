@@ -19,9 +19,9 @@
       {% else %}{{ book.category }}{% endif %}<br>
       Pages: {{ book.pages }}<br>
       {% if book.available is not none %}
-        Copies: {{ book.copies }} Available: {{ book.available }}
+        Copies: <b>{{ book.copies }}</b> Available: <b>{{ book.available }}</b>
       {% else %}
-        Copies: {{ book.copies }}
+        Copies: <b>{{ book.copies }}</b>
       {% endif %}
     </div>
 
@@ -29,7 +29,7 @@
       <p class="details-desc">{{ p }}</p>
     {% endfor %}
 
-    <a href="{{ url_for('book_titles') }}" class="btn btn-success back-btn">Back to Book Titles</a>
+    <a href="{{ url_for('book_titles') }}" class="btn btn-success back-btn float-end">Back to Book Titles</a>
   </div>
 </div>
 

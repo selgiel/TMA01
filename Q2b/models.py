@@ -2,10 +2,17 @@ from dataclasses import dataclass, field
 from typing import List, Dict, Any, Optional
 from datetime import datetime
 from bson import ObjectId
+from dataclasses import dataclass, field
+from typing import List, Dict, Any, Optional
+from datetime import datetime
+from bson import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import UserMixin
+from werkzeug.security import generate_password_hash, check_password_hash
+from . import login_manager
 
-# Import the provided in‑memory list
-from books import all_books  # same structure already used by the current app
+# Import in‑memory list
+from .books import all_books  # same structure already used by the current app
 
 @dataclass
 class Book:
@@ -101,12 +108,15 @@ class Book:
         return (paras[0], "") if paras else ("", "")
 
 @dataclass
-class User:
+class User(UserMixin):
     id: Optional[str]
     email: str
     name: str
-    role: str  # "admin" or "user"
+    role: str
     pw_hash: str
+
+    def get_id(self) -> str:
+        return str(self.id or "")
 
     @staticmethod
     def from_mongo(doc: Dict[str, Any]) -> "User":
@@ -119,12 +129,7 @@ class User:
         )
 
     def to_mongo(self) -> Dict[str, Any]:
-        return {
-            "email": self.email,
-            "name": self.name,
-            "role": self.role,
-            "pw_hash": self.pw_hash,
-        }
+        return {"email": self.email, "name": self.name, "role": self.role, "pw_hash": self.pw_hash}
 
     @staticmethod
     def find_by_email(users_col, email: str) -> Optional["User"]:
@@ -143,12 +148,11 @@ class User:
     def create(users_col, email: str, password: str, name: str, role: str = "user") -> "User":
         if User.find_by_email(users_col, email):
             raise ValueError("Email already registered")
-        pw_hash = generate_password_hash(password)
         doc = {
             "email": email.lower().strip(),
             "name": name.strip(),
             "role": role,
-            "pw_hash": pw_hash,
+            "pw_hash": generate_password_hash(password),
         }
         res = users_col.insert_one(doc)
         doc["_id"] = res.inserted_id
@@ -157,6 +161,12 @@ class User:
     def verify_password(self, password: str) -> bool:
         return check_password_hash(self.pw_hash, password)
 
+    @staticmethod
+    def authenticate(users_col, email: str, password: str) -> Optional["User"]:
+        u = User.find_by_email(users_col, email.lower().strip())
+        if not u:
+            return None
+        return u if u.verify_password(password) else None
 
 def seed_assignment_users(users_col) -> None:
     """
