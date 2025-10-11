@@ -9,7 +9,9 @@ from .models import Book, User
 
 with app.app_context():
     Book.seed_if_empty(books_col)
-    seed_assignment_users(users_col)  
+    seed_assignment_users(users_col)
+    app.loans_col.create_index([("user_id", 1), ("book_id", 1), ("return_date", 1)])
+    app.loans_col.create_index("borrow_date")
 
 # 3) Routes backed by MongoDB
 # @app.route("/", methods=["GET", "POST"])

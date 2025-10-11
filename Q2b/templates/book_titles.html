@@ -3,12 +3,6 @@
 
 <div class="container-fluid px-3">
 
-  <!-- Full-width page title bar -->
-  <!-- <div class="bg-success bg-opacity-10 py-2 px-3">
-    <h4 class="fw-semibold mb-0" style="color:#345246;">BOOK TITLES</h4>
-  </div> -->
-
-  <!-- Shared narrow content width -->
   <div class="content-narrow px-4 mt-2">
 
     <!-- Number of titles + filter -->
@@ -34,7 +28,6 @@
       </div>
     </div>
 
-
     <!-- Cards -->
     {% for book in books %}
     <div class="card shadow-sm mb-2">
@@ -57,18 +50,24 @@
             <div class="book-paragraph mb-2">{{ book.first_para }}</div>
             <div class="book-paragraph mb-3">{{ book.last_para }}</div>
 
-            <div class="mt-auto d-flex">
-              <a href="/books/{{ book.id }}" class="btn btn-success btn-sm ms-auto">
-                More details
-              </a>
+            <!-- Footer buttons: Make a Loan / Not Available + More details -->
+            <div class="mt-auto d-flex justify-content-end gap-2">
+              {% if book.available > 0 %}
+                <form method="post" action="{{ url_for('catalogue_bp.make_loan', book_id=book.id) }}">
+                  <button class="btn btn-success btn-sm">Make a Loan</button>
+                </form>
+              {% endif %}
+              <a href="/books/{{ book.id }}" class="btn btn-success btn-sm">More details</a>
             </div>
+            <!-- End footer buttons -->
+
           </div>
         </div>
       </div>
     </div>
-  {% endfor %}
-  </div>
+    {% endfor %}
 
+  </div>
 </div>
 
 {% endblock %}

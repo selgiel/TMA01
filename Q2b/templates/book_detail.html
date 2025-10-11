@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
 
-
 <div class="details-card">
   <img class="details-cover" src="{{ book.url }}" alt="{{ book.title }}">
   <div class="details-body">
@@ -14,7 +13,7 @@
     </div>
 
     <div class="details-meta">
-      Category: 
+      Category:
       {% if book.categories %}{{ ", ".join(book.categories) }}
       {% else %}{{ book.category }}{% endif %}<br>
       Pages: {{ book.pages }}<br>
@@ -29,7 +28,18 @@
       <p class="details-desc">{{ p }}</p>
     {% endfor %}
 
-    <a href="{{ url_for('catalogue_bp.book_titles') }}" class="btn btn-success back-btn float-end">Back to Book Titles</a>
+    <!-- book_detail.html -->
+    <div class="d-flex justify-content-end gap-2">
+      <a href="{{ url_for('catalogue_bp.book_titles') }}" class="btn btn-success">Back to Book Titles</a>
+      {% if (book.available | int) > 0 %}
+        <form method="post" action="{{ url_for('catalogue_bp.make_loan', book_id=book._id|string) }}">
+          <button class="btn btn-success" type="submit">Make a Loan</button>
+        </form>
+      {% else %}
+        <span class="btn btn-danger same-btn" aria-disabled="true">Not Available</span>
+      {% endif %}
+    </div>
+
   </div>
 </div>
 
