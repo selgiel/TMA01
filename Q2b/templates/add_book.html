@@ -38,7 +38,7 @@
           <div class="mb-3 row fw-semibold">
             <label class="col-sm-4 col-form-label">{{ form.url.label }}</label>
             <div class="col-sm-8">
-              {{ form.url(class="form-control", placeholder="https://") }}
+              {{ form.url(class="form-control") }}
             </div>
           </div>
 
@@ -46,7 +46,7 @@
           <div class="mb-3 row fw-semibold">
             <label class="col-sm-4 col-form-label">{{ form.description.label }}</label>
             <div class="col-sm-8">
-              {{ form.description(class="form-control", rows="6", placeholder="One paragraph per line") }}
+              {{ form.description(class="form-control", rows="6") }}
             </div>
           </div>
 
@@ -55,7 +55,7 @@
             <div class="row align-items-center mb-2">
               <label class="col-sm-4 fw-semibold">Author {{ loop.index }}:</label>
               <div class="col-sm-6">
-                {{ entry.form.name(class="form-control", placeholder="Author name") }}
+                {{ entry.form.name(class="form-control") }}
               </div>
               <div class="col-sm-2 form-check d-flex justify-content-end">
                 {{ entry.form.illustrator(class="form-check-input me-2", id="ill{{ loop.index0 }}") }}
@@ -68,7 +68,7 @@
           <div class="mt-3 mb-3 row fw-semibold">
             <label class="col-sm-4 col-form-label">{{ form.pages.label }}</label>
             <div class="col-sm-8">
-              {{ form.pages(class="form-control", min="1") }}
+              {{ form.pages(class="form-control", min="1", value ="") }}
             </div>
           </div>
 
@@ -76,7 +76,7 @@
           <div class="mb-3 row fw-semibold">
             <label class="col-sm-4 col-form-label">{{ form.copies.label }}</label>
             <div class="col-sm-8">
-              {{ form.copies(class="form-control", min="1") }}
+              {{ form.copies(class="form-control", min="1", value ="") }}
             </div>
           </div>
 
