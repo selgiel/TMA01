@@ -2,14 +2,8 @@ from dataclasses import dataclass, field
 from typing import List, Dict, Any, Optional
 from datetime import datetime
 from bson import ObjectId
-from dataclasses import dataclass, field
-from typing import List, Dict, Any, Optional
-from datetime import datetime
-from bson import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
-from werkzeug.security import generate_password_hash, check_password_hash
-from . import login_manager
 from pymongo import ReturnDocument
 
 # Import in‑memory list
