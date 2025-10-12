@@ -219,7 +219,8 @@ body {
 .nav-toggle {
   position: absolute; 
   overflow: hidden;
-  white-space: nowrap; 
+  white-space: nowrap;
+  display: none;
 }
 
 /* Controls appearance of the hamburger */
@@ -300,7 +301,7 @@ body {
 }
 
 .navbar-toggler {
-  margin: 0rem 1rem;
+  margin: 0rem 2rem;
 }
 
 #top-expander { 

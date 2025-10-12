@@ -1,6 +1,16 @@
 {% extends "base.html" %}
 {% block content %}
 
+{% with messages = get_flashed_messages(with_categories=True) %}
+  {% if messages %}
+    <div class="flashes px-4 mt-2">
+      {% for category, msg in messages %}
+        <div class="alert alert-{{ category }}">{{ msg }}</div>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+
 {% if loans and loans|length > 0 %}
 <div class="content-narrow px-4 mt-2">
   <div class="card shadow-sm">

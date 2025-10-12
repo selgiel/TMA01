@@ -1,97 +1,108 @@
 {% extends "base.html" %}
 {% block content %}
+
 <div class="container-fluid ps-4" id="add-book">
   <div class="row gx-0">
-      <div class="card shadow-sm mt-3 p-3">
-        <div class="card-body">
-          <form method="post" novalidate>
-            {{ form.hidden_tag() }}
+    <div class="card shadow-sm mt-3 p-3">
+      <div class="card-body">
 
-            <!-- Genres (multi-select) -->
-            <div class="mb-3 row fw-semibold">
-              <label class="col-sm-4 col-form-label">{{ form.genres.label }}</label>
-              <div class="col-sm-8">
-                {{ form.genres(class="form-select", multiple=True) }}
-                <!-- <div class="form-text">Hold Ctrl/Cmd to select more than one.</div> -->
+        <!-- Single form; posts to the blueprint's add_book route -->
+        <form method="post" action="{{ url_for('catalogue_bp.add_book') }}" novalidate>
+          {{ form.hidden_tag() }}
+
+          <!-- Genres (multi-select) -->
+          <div class="mb-3 row fw-semibold">
+            <label class="col-sm-4 col-form-label">{{ form.genres.label }}</label>
+            <div class="col-sm-8">
+              {{ form.genres(class="form-select", multiple=True, size="8") }}
+            </div>
+          </div>
+
+          <!-- Title -->
+          <div class="mb-3 row fw-semibold">
+            <label class="col-sm-4 col-form-label">{{ form.title.label }}</label>
+            <div class="col-sm-8">
+              {{ form.title(class="form-control") }}
+            </div>
+          </div>
+
+          <!-- Category -->
+          <div class="mb-3 row fw-semibold">
+            <label class="col-sm-4 col-form-label">{{ form.category.label }}</label>
+            <div class="col-sm-8">
+              {{ form.category(class="form-select") }}
+            </div>
+          </div>
+
+          <!-- URL -->
+          <div class="mb-3 row fw-semibold">
+            <label class="col-sm-4 col-form-label">{{ form.url.label }}</label>
+            <div class="col-sm-8">
+              {{ form.url(class="form-control", placeholder="https://") }}
+            </div>
+          </div>
+
+          <!-- Description -->
+          <div class="mb-3 row fw-semibold">
+            <label class="col-sm-4 col-form-label">{{ form.description.label }}</label>
+            <div class="col-sm-8">
+              {{ form.description(class="form-control", rows="6", placeholder="One paragraph per line") }}
+            </div>
+          </div>
+
+          <!-- Authors (FieldList) -->
+          {% for entry in form.authors %}
+            <div class="row align-items-center mb-2">
+              <label class="col-sm-4 fw-semibold">Author {{ loop.index }}:</label>
+              <div class="col-sm-6">
+                {{ entry.form.name(class="form-control", placeholder="Author name") }}
+              </div>
+              <div class="col-sm-2 form-check d-flex justify-content-end">
+                {{ entry.form.illustrator(class="form-check-input me-2", id="ill{{ loop.index0 }}") }}
+                <label class="form-check-label" for="ill{{ loop.index0 }}">Illustrator</label>
               </div>
             </div>
+          {% endfor %}
 
-            <!-- Title -->
-            <div class="mb-3 row fw-semibold">
-              <label class="col-sm-4 col-form-label">{{ form.title.label }}</label>
-              <div class="col-sm-8">
-                {{ form.title(class="form-control") }}
-              </div>
+          <!-- Pages -->
+          <div class="mt-3 mb-3 row fw-semibold">
+            <label class="col-sm-4 col-form-label">{{ form.pages.label }}</label>
+            <div class="col-sm-8">
+              {{ form.pages(class="form-control", min="1") }}
             </div>
+          </div>
 
-            <!-- Category -->
-            <div class="mb-3 row fw-semibold">
-              <label class="col-sm-4 col-form-label">{{ form.category.label }}</label>
-              <div class="col-sm-8">
-                {{ form.category(class="form-select") }}
-              </div>
+          <!-- Copies -->
+          <div class="mb-3 row fw-semibold">
+            <label class="col-sm-4 col-form-label">{{ form.copies.label }}</label>
+            <div class="col-sm-8">
+              {{ form.copies(class="form-control", min="1") }}
             </div>
+          </div>
 
-            <!-- URL -->
-            <div class="mb-3 row fw-semibold">
-              <label class="col-sm-4 col-form-label">{{ form.url.label }}</label>
-              <div class="col-sm-8">
-                {{ form.url(class="form-control", placeholder="https://") }}
-              </div>
-            </div>
-
-            <!-- Description -->
-            <div class="mb-3 row fw-semibold">
-              <label class="col-sm-4 col-form-label">{{ form.description.label }}</label>
-              <div class="col-sm-8">
-                {{ form.description(class="form-control", rows="6") }}
-              </div>
-            </div>
-
-            <!-- Authors (FieldList) -->
-            {% for entry in form.authors %}
-              <div class="row align-items-center">
-                <label class="col-sm-4 fw-semibold">Author {{ loop.index }}:</label>
-                <div class="col-sm-6">
-                  {{ entry.form.name(class="form-control") }}
-                </div>
-                <div class="col-sm-2 form-check d-flex justify-content-end">
-                  {{ entry.form.illustrator(class="form-check-input me-4", id="ill{{ loop.index }}") }}
-                  <label class="form-check-label float-end" for="ill{{ loop.index }}">Illustrator</label>
-                </div>
-              </div>
-            {% endfor %}
-
-            <!-- Pages -->
-            <div class="mt-3 mb-3 row fw-semibold">
-              <label class="col-sm-4 col-form-label">{{ form.pages.label }}</label>
-              <div class="col-sm-8">
-                {{ form.pages(class="form-control", min="1") }}
-              </div>
-            </div>
-
-            <!-- Copies -->
-            <div class="mb-3 row fw-semibold">
-              <label class="col-sm-4 col-form-label">{{ form.copies.label }}</label>
-              <div class="col-sm-8">
-                {{ form.copies(class="form-control", min="1") }}
-              </div>
-            </div>
-
-            <!-- Buttons -->
-            <div class="d-flex justify-content-between">
-              <div class ="mt-1">
+          <!-- Buttons: support either add_author/remove_author or addauthor/removeauthor -->
+          <div class="d-flex justify-content-between">
+            <div class="mt-1">
+              {% if form.add_author is defined %}
                 {{ form.add_author(class="btn btn-outline-secondary me-2") }}
+              {% elif form.addauthor is defined %}
+                {{ form.addauthor(class="btn btn-outline-secondary me-2") }}
+              {% endif %}
+
+              {% if form.remove_author is defined %}
                 {{ form.remove_author(class="btn btn-outline-secondary") }}
-              </div>
-            <div>
-                {{ form.submit(class="btn btn-success") }}
-              </div>
+              {% elif form.removeauthor is defined %}
+                {{ form.removeauthor(class="btn btn-outline-secondary") }}
+              {% endif %}
             </div>
-          </form>
-        </div>
+            <div>
+              {{ form.submit(class="btn btn-success") }}
+            </div>
+          </div>
+
+        </form>
       </div>
+    </div>
   </div>
 </div>
-
 {% endblock %}
